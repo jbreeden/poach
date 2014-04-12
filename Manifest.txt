@@ -1,0 +1,7 @@
+Manifest.txt
+README.txt
+Rakefile
+bin/poach
+lib/poach.rb
+test/test_poach.rb
+resources/nashorn-main.jar
