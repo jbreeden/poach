@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "poach"
-  s.version = "0.1.0"
+  s.version = "0.0.1"
   s.homepage = 'https://github.com/jbreeden/poach'
   s.licenses = ['MIT']
   s.summary = 'Packages nashorn projects into executable jar files'
