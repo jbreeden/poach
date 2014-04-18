@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.name = "poach"
   s.version = "0.1.0"
   s.licenses = ['MIT']
-  s.summary = 'Creates an executable jar out of Nashorn based JavaScript projects'
+  s.summary = 'Packages nashorn projects into executable jar files'
   s.authors = "Jared Breeden"
   s.files = [
     'bin/poach',

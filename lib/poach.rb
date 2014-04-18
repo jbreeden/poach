@@ -2,7 +2,7 @@ require 'thor'
 require 'fileutils'
 
 class Poach < Thor
-  desc '[options]', 'Make executable jar from current directory'
+  desc 'OPTIONS', 'Make executable jar from current directory'
   option :name,
     :default => 'app',
     :desc => 'The desired name of the jar. (Eg: "my_app" will generate my_app.jar)'
@@ -10,7 +10,7 @@ class Poach < Thor
     nashorn_main_jar = File.dirname(__FILE__) + "/../resources/nashorn-main.jar"
     application_jars = Dir.glob 'jars/**/*.jar'
     application_contents = Dir.glob("**/*").reject do |f|
-      f =~ %r[dist/|jars/] || !(File.file? f)
+      f =~ %r[dist/|jars/] || !(File.file? f) || File.basename(f) =~ /\.(coffee|java)$/
     end
 
     # Recreate dist/ folder
