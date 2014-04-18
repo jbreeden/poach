@@ -30,7 +30,6 @@ As long as your project satisfies these expectations, `poach` will build your
 project into an executable jar file. This is accomplished by packaging the project
 with a built-in `NashornMain` class whose main method will simply load your `main.js` file.
 
-
 Example Project Layout
 ----------------------
 
@@ -43,6 +42,16 @@ Example Project Layout
    |- main.js     # When the jar file is run, this script is loaded
    |- ...         # Any other files or directories required for your app
 ```
+
+Loading Files in a Jar
+----------------------
+
+For nashorn to load your scripts correctly once packaged in a jar, you'll need
+to make sure you're referencing them from the classpath. For example, if your project
+contains a script file under `path/to/script.js`, you're `main.js` file would load it with
+the following command:
+
+`load('classpath:path/to/script.js')`
 
 Requirements
 ------------
