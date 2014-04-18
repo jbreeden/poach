@@ -52,7 +52,13 @@ To install and run poach, you must have the `ruby` and `jar` commands installed 
 Install
 -------
 
-From source
+From rubygems
+
+```
+gem install poach
+```
+
+Or, from source
 
 ```
 gem build poach.gemspec
