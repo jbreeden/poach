@@ -48,7 +48,7 @@ Loading Files in a Jar
 
 For nashorn to load your scripts correctly once packaged in a jar, you'll need
 to make sure you're referencing them from the classpath. For example, if your project
-contains a script file under `path/to/script.js`, you're `main.js` file would load it with
+contains a script file under `path/to/script.js`, your `main.js` file would load it with
 the following command:
 
 `load('classpath:path/to/script.js')`
