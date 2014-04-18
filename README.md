@@ -38,7 +38,7 @@ Example Project Layout
    |- dist/       # Poached jar files will end up here
    |- jars/       # Any jar dependencies should be here
    |- com/        # May contain additional .class file dependencies
-   |- main.coffee # This file will be ignored. It's for you benefit only.
+   |- main.coffee # This file will be ignored. It's for your benefit only.
    |- main.js     # When the jar file is run, this script is loaded
    |- ...         # Any other files or directories required for your app
 ```
