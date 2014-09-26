@@ -53,10 +53,75 @@ the following command:
 
 `load('classpath:path/to/script.js')`
 
+Subcommands
+-----------
+
+The main feature of poach is to package your nashorn app into a jar. This jar will hold not only your scripts, but the contents of any jars you depend on, which can amount to a lot of files. So, if you to extract the contents of your jar to make a quick change to your scripts before repacking it, you would probably see a mess of files rather than your nice clean project structure. Since this is one of the main selling points of working with a scripting language in the first place, poach has a few commands to make this simpler.
+
+To see the available commands, simply run `poach help`
+
+```
+Commands:
+  poach OPTIONS                # Make executable jar from current directory
+  poach extract app.jar regex  # extract all files from jar matching the regex
+  poach help [COMMAND]         # Describe available commands or one specific ...
+  poach update app.jar glob    # update jar with all files matching the glob
+```
+
+`poach extract` takes the name of your jar, and a regex. This will extract any files in the jar with a path that matches the provided regex. In the following example, I've extracted all Javascript and FXML files from a packaged application:
+
+```
+C:\equipment-simulator-gui\dist>dir
+09/26/2014  07:53 AM           718,239 equipment-simulator-gui.jar
+               
+C:\equipment-simulator-gui\dist>poach extract equipment-simulator-gui.jar ".*\.(js|fxml)"
+Running: jar xf equipment-simulator-gui.jar equipSimController.js
+Running: jar xf equipment-simulator-gui.jar fxml/equipSimView.fxml
+Running: jar xf equipment-simulator-gui.jar lib/EventEmitter.js
+Running: jar xf equipment-simulator-gui.jar lib/fileUtils.js
+Running: jar xf equipment-simulator-gui.jar lib/fx.js
+Running: jar xf equipment-simulator-gui.jar lib/fx_table.js
+Running: jar xf equipment-simulator-gui.jar lib/reconMib.js
+Running: jar xf equipment-simulator-gui.jar lib/underscore.js
+Running: jar xf equipment-simulator-gui.jar main.js
+Running: jar xf equipment-simulator-gui.jar settingsLoader.js
+Running: jar xf equipment-simulator-gui.jar SimulatorEventHub.js
+
+C:\equipment-simulator-gui\dist>dir
+09/25/2014  06:17 PM           718,239 equipment-simulator-gui.jar
+09/25/2014  06:15 PM            15,261 equipSimController.js
+09/26/2014  07:46 AM    <DIR>          fxml
+09/26/2014  07:46 AM    <DIR>          lib
+09/25/2014  06:16 PM               392 main.js
+09/25/2014  06:15 PM             2,125 settingsLoader.js
+09/25/2014  06:15 PM             2,409 SimulatorEventHub.js
+```
+
+You can see that all files ending in .js or .fxml were extracted from the jar, even if they're in subdirectories.
+
+`poach update` takes the name of your jar, and a ruby-style file glob (with support for **). It will then update the jar with all files on the file system matched by the provided glob. In the following example, I've repacked the equipment-simulator-gui app after making changes to the scripts.
+
+```
+C:\equipment-simulator-gui\dist>poach update equipment-simulator-gui.jar '**/*.{js,fxml}'
+Running: jar uf equipment-simulator-gui.jar equipSimController.js
+Running: jar uf equipment-simulator-gui.jar lib/EventEmitter.js
+Running: jar uf equipment-simulator-gui.jar lib/fileUtils.js
+Running: jar uf equipment-simulator-gui.jar lib/fx.js
+Running: jar uf equipment-simulator-gui.jar lib/fx_table.js
+Running: jar uf equipment-simulator-gui.jar lib/reconMib.js
+Running: jar uf equipment-simulator-gui.jar lib/underscore.js
+Running: jar uf equipment-simulator-gui.jar main.js
+Running: jar uf equipment-simulator-gui.jar settingsLoader.js
+Running: jar uf equipment-simulator-gui.jar SimulatorEventHub.js
+Running: jar uf equipment-simulator-gui.jar fxml/equipSimView.fxml
+```
+
+Not the use of single quotes. Since I'm running on cmd, this prevents the shell from interpretting my glob and expanding it into parameters to `poach update`.
+
 Requirements
 ------------
 
-To install and run poach, you must have the `ruby` and `jar` commands installed on your system.
+To install and run poach, you must have the `gem` and `jar` commands installed on your system. Usually you'll have both of these already if you have a working installation of Ruby and Java.
 
 Install
 -------
