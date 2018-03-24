@@ -29,6 +29,9 @@ Details
 As long as your project satisfies these expectations, `poach` will build your
 project into an executable jar file. This is accomplished by packaging the project
 with a built-in `NashornMain` class whose main method will simply load your `main.js` file.
+Apparently I just stuck the compiled version of that class into this project a few years back,
+and the source code is nowhere to be found. Cool! Should be trivial to rewrite if need be.
+
 
 Example Project Layout
 ----------------------
@@ -97,9 +100,14 @@ C:\equipment-simulator-gui\dist>dir
 09/25/2014  06:15 PM             2,409 SimulatorEventHub.js
 ```
 
-You can see that all files ending in .js or .fxml were extracted from the jar, even if they're in subdirectories.
+You can see that all files ending in .js or .fxml were extracted from the jar,
+even if they're in subdirectories.
 
-`poach update` takes the name of your jar, and a ruby-style file glob (with support for **). It will then update the jar with all files on the file system matched by the provided glob. In the following example, I've repacked the equipment-simulator-gui app after making changes to the scripts.
+`poach update` takes the name of your jar, and a ruby-style file glob (with support for **).
+(Note that this is a little incongruent with `poach extract`, which uses regexps.)
+It will then update the jar with all files on the file system matched by the provided glob.
+In the following example, I've repacked an app (the equipment-simulator-gui) after making
+changes to the scripts.
 
 ```
 C:\equipment-simulator-gui\dist>poach update equipment-simulator-gui.jar '**/*.{js,fxml}'
@@ -116,7 +124,8 @@ Running: jar uf equipment-simulator-gui.jar SimulatorEventHub.js
 Running: jar uf equipment-simulator-gui.jar fxml/equipSimView.fxml
 ```
 
-Not the use of single quotes. Since I'm running on cmd, this prevents the shell from interpretting my glob and expanding it into parameters to `poach update`.
+Note the use of single quotes, which prevents the shell from expanding the glob, so that it
+can be interpretted by `poach`.
 
 Requirements
 ------------

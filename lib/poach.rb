@@ -46,5 +46,25 @@ class Poach < Thor
     end
   end
 
+  desc 'extract app.jar regex', 'extract all files from jar matching the regex'
+  def extract(jar, regex)
+    contents = `jar tf #{jar}`
+    scripts = contents.each_line.grep(Regexp.new(regex)).map { |l| l.strip }
+    scripts.each do |script|
+      puts "Running: " + "jar xf #{jar} #{script}"
+      system "jar xf #{jar} #{script}"
+    end
+  end
+
+  desc 'update app.jar glob', 'update jar with all files matching the glob'
+  def update(jar, glob)
+    contents = `jar tf #{jar}`
+    files = Dir[glob]
+    files.each do |file|
+      puts "Running: " + "jar uf #{jar} #{file}"
+      system "jar uf #{jar} #{file}"
+    end
+  end
+
   default_task :make
 end
